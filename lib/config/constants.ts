@@ -32,17 +32,19 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  USER:{
   DASHBOARD: '/dashboard',
   PROFILE: '/profile',
   WITHDRAW: '/withdraw',
   DEALS: '/deals',
-  RETAILERS: '/retailers',
+  RETAILERS: '/retailers'
+  },
   ADMIN: {
     LOGIN: '/admin/login',
     DASHBOARD: '/admin',
     USERS: '/admin/users',
     RETAILERS: '/admin/retailers',
     REPORTS: '/admin/reports',
-    SETTINGS: '/admin/settings',
+    SETTINGS: '/admin/settings'
   },
 } as const;

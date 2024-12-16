@@ -1,71 +1,50 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/lib/auth-context';
+import { useState, useEffect } from "react";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { User, LogOut, Settings, Wallet } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { memo } from 'react';
-import { AuthButtons } from './auth-buttons';
-import { ROUTES } from '@/lib/config/constants';
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu";
+import { LogOut } from "react-feather";
+import Link from "next/link";
+import { ROUTES } from "@/lib/config/constants";
 
-export const UserNav = memo(function UserNav() {
-  const { user, logout, isAdmin } = useAuth();
+export default function UserNav() {
+  const { user, logout } = useAuth();
   const router = useRouter();
-
-  if (!user) {
-    return <AuthButtons isAuthenticated={false} />;
-  }
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     await logout();
-    router.push(ROUTES.HOME);
+    router.push("/login");
   };
+
+  useEffect(() => {
+    if (isLoggingOut) {
+      // Perform any side effects related to logging out here
+    }
+  }, [isLoggingOut]);
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback>{user.name[0]}</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
-        <div className="flex items-center justify-start gap-2 p-2">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium">{user.name}</p>
-            <p className="text-xs text-muted-foreground">{user.email}</p>
-          </div>
-        </div>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <Link href={ROUTES.DASHBOARD} className="cursor-pointer">
-            <User className="mr-2 h-4 w-4" />
-            Dashboard
+          <Link href={ROUTES.USER.PROFILE} className="cursor-pointer">
+            Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={ROUTES.PROFILE} className="cursor-pointer">
-            <Settings className="mr-2 h-4 w-4" />
-            Settings
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={ROUTES.WITHDRAW} className="cursor-pointer">
-            <Wallet className="mr-2 h-4 w-4" />
+          <Link href={ROUTES.USER.WITHDRAW} className="cursor-pointer">
             Withdraw Funds
           </Link>
         </DropdownMenuItem>
-        {isAdmin && (
+        {user?.role === "admin" && (
           <DropdownMenuItem asChild>
             <Link href={ROUTES.ADMIN.DASHBOARD} className="cursor-pointer">
               Admin Dashboard
@@ -73,11 +52,15 @@ export const UserNav = memo(function UserNav() {
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+        <DropdownMenuItem
+          onClick={handleLogout}
+          className="cursor-pointer"
+          disabled={isLoggingOut}
+        >
           <LogOut className="mr-2 h-4 w-4" />
-          Logout
+          {isLoggingOut ? "Logging out..." : "Logout"}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-});
+}

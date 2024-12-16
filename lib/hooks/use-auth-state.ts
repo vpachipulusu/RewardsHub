@@ -15,7 +15,7 @@ export function useAuthState() {
     async (email: string, password: string) => {
       try {
         // Replace with actual authentication logic
-        const authenticatedUser: User = { email, role: "user" }; // Example user data
+        const authenticatedUser: User = { id: "user-id", name: "User", email, role: "user" }; // Example user data
         setUser(authenticatedUser);
 
         toast({
@@ -23,7 +23,7 @@ export function useAuthState() {
           description: "You have successfully logged in.",
         });
 
-        router.push(ROUTES.DASHBOARD);
+        router.push(ROUTES.USER.DASHBOARD);
       } catch (error) {
         toast({
           title: "Error",
@@ -40,7 +40,7 @@ export function useAuthState() {
     async (email: string, password: string) => {
       try {
         // Replace with actual authentication logic
-        const authenticatedAdmin: User = { email, role: "admin" }; // Example admin data
+        const authenticatedAdmin: User = { id: "admin-id", name: "Admin", email, role: "admin" }; // Example admin data
         setUser(authenticatedAdmin);
 
         toast({

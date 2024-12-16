@@ -6,17 +6,17 @@ import { useAuth } from '@/lib/auth-context';
 import { ROUTES } from '@/lib/config/constants';
 
 export function useAdminAuth() {
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!user || !isAdmin) {
+    if (!user || user.role !== 'admin') {
       if (pathname !== ROUTES.ADMIN.LOGIN) {
         router.replace(ROUTES.ADMIN.LOGIN);
       }
     }
-  }, [user, isAdmin, router, pathname]);
+  }, [user, router, pathname]);
 
-  return { user, isAdmin };
+  return { user, isAdmin: user?.role === 'admin' };
 }

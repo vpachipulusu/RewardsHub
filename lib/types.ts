@@ -11,6 +11,7 @@ export interface User {
     accountNumber: string;
     routingNumber: string;
   };
+  role: 'user' | 'admin';
 }
 
 export interface AdminRetailer extends Retailer {

@@ -56,7 +56,7 @@ export function AdminDashboard() {
         <CardHeader>
           <CardTitle>Cashback Trends</CardTitle>
         </CardHeader>
-        <CardContent>
+        {/* <CardContent>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={stats.cashbackTrends}>
@@ -68,7 +68,7 @@ export function AdminDashboard() {
               </LineChart>
             </ResponsiveContainer>
           </div>
-        </CardContent>
+        </CardContent> */}
       </Card>
     </div>
   );

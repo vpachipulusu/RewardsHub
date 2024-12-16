@@ -1,13 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { CircleDollarSign } from 'lucide-react';
-import { ModeToggle } from '@/components/mode-toggle';
-import { UserNav } from '@/components/layout/user-nav';
-import { useAuth } from '@/lib/auth-context';
-import { usePathname } from 'next/navigation';
-import { memo } from 'react';
-import { ROUTES } from '@/lib/config/constants';
+import { memo } from "react";
+import { useAuth } from "@/lib/auth-context";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { DollarSign } from "react-feather";
+import { ROUTES } from "@/lib/config/constants";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,14 +13,17 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
+import UserNav from "@/components/layout/user-nav";
+import { CircleDollarSign } from "lucide-react";
 
 const Header = memo(function Header() {
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
   const pathname = usePathname();
+  const isAdmin = user?.role === 'admin'; // Adjust this line based on your user object structure
 
   // Don't show header on admin pages except admin dashboard
-  if (pathname?.startsWith('/admin') && pathname !== '/admin') {
+  if (pathname?.startsWith("/admin") && pathname !== "/admin") {
     return null;
   }
 
@@ -35,38 +36,26 @@ const Header = memo(function Header() {
             RewardHub
           </Link>
         </div>
-        
+
         {user && !isAdmin && (
-          <NavigationMenu className="mx-6">
+          <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Retailers</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <div className="grid gap-1">
-                      <h4 className="font-medium leading-none">Categories</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Browse retailers by category
-                      </p>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/deals" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                    Deals
+                  <NavigationMenuLink href={ROUTES.USER.DASHBOARD}>
+                    Dashboard
                   </NavigationMenuLink>
-                </Link>
+                  <NavigationMenuLink href={ROUTES.USER.PROFILE}>
+                    Profile
+                  </NavigationMenuLink>
+                </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         )}
 
-        <div className="ml-auto flex items-center space-x-4">
-          <ModeToggle />
-          <UserNav />
-        </div>
+        {user && <UserNav />}
       </div>
     </header>
   );
