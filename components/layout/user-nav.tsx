@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "@/lib/auth-context";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,9 +12,11 @@ import {
 import { LogOut } from "react-feather";
 import Link from "next/link";
 import { ROUTES } from "@/lib/config/constants";
+import { useAuth } from "@/lib/auth-context";
+import { User } from "@/lib/types";
 
 export default function UserNav() {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth() as { user: User | null; logout: () => Promise<void> };
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -30,6 +31,10 @@ export default function UserNav() {
       // Perform any side effects related to logging out here
     }
   }, [isLoggingOut]);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <DropdownMenu>
