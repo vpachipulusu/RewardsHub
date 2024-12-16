@@ -16,7 +16,7 @@ export function RetailerNavigation() {
   const router = useRouter();
 
   const handleCategoryClick = (category: string) => {
-    router.push(`${ROUTES.RETAILERS}?category=${encodeURIComponent(category)}`);
+    router.push(`${ROUTES.USER.RETAILERS}?category=${encodeURIComponent(category)}`);
   };
 
   return (

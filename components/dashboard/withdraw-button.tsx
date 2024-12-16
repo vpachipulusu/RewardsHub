@@ -17,7 +17,7 @@ export function WithdrawButton({ availableBalance }: WithdrawButtonProps) {
 
   return (
     <Button
-      onClick={() => router.push(ROUTES.WITHDRAW)}
+      onClick={() => router.push(ROUTES.USER.WITHDRAW)}
       disabled={isDisabled}
     >
       {isDisabled 
