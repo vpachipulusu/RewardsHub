@@ -5,8 +5,22 @@ import { DashboardStats } from '@/components/dashboard/dashboard-stats';
 import { RecentTransactions } from '@/components/dashboard/recent-transactions';
 import { SavedRetailers } from '@/components/dashboard/saved-retailers';
 import { DashboardCharts } from '@/components/dashboard/dashboard-charts';
-import { useClientAuth } from '@/lib/hooks/use-client-auth';
+import { useClientAuth as useClientAuthHook } from '@/lib/hooks/use-client-auth';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
+import { useState, useEffect } from 'react';
+
+export function useClientAuth() {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    // logic to fetch user
+    // set isLoading to false after fetching user
+    setIsLoading(false);
+  }, []);
+
+  return { user, isLoading };
+}
 
 export default function DashboardPage() {
   const { isLoading } = useClientAuth();

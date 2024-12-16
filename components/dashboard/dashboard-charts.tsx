@@ -5,6 +5,7 @@ import { Line, Bar } from 'recharts';
 import { MemoizedLineChart, MemoizedBarChart } from '@/components/shared/chart-wrapper';
 import { defaultChartConfig, lineConfig, barConfig } from '@/lib/config/chart';
 import { mockData } from '@/lib/config/mock-data';
+import CustomYAxis from '@/components/dashboard/CustomYAxis';
 
 export function DashboardCharts() {
   const { cashbackTrends, retailerPerformance } = mockData.charts;
@@ -15,7 +16,7 @@ export function DashboardCharts() {
         <CardHeader>
           <CardTitle>Cashback History</CardTitle>
         </CardHeader>
-        <CardContent>
+        {/* <CardContent>
           <div className="h-[300px]">
             <MemoizedLineChart data={cashbackTrends} {...defaultChartConfig}>
               <Line 
@@ -24,26 +25,28 @@ export function DashboardCharts() {
                 stroke="hsl(var(--chart-1))"
                 {...lineConfig}
               />
+              <CustomYAxis />
             </MemoizedLineChart>
           </div>
-        </CardContent>
+        </CardContent> */}
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Retailers</CardTitle>
+          <CardTitle>Retailer Performance</CardTitle>
         </CardHeader>
-        <CardContent>
+        {/* <CardContent>
           <div className="h-[300px]">
             <MemoizedBarChart data={retailerPerformance} {...defaultChartConfig}>
               <Bar 
-                dataKey="cashback" 
-                fill="hsl(var(--chart-1))"
-                {...barConfig}
+                dataKey="performance" 
+                fill="hsl(var(--chart-2))"
+                {...{ ...barConfig, radius: [barConfig.radius[0], barConfig.radius[1], barConfig.radius[2], barConfig.radius[3]] }}
               />
+              <CustomYAxis />
             </MemoizedBarChart>
           </div>
-        </CardContent>
+        </CardContent> */}
       </Card>
     </>
   );
