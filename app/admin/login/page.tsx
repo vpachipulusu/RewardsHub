@@ -11,20 +11,20 @@ import { useAuth } from '@/lib/auth-context';
 import { useAdminLoginForm } from '@/lib/hooks/use-admin-login-form';
 
 export default function AdminLoginPage() {
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const { formState, handleSubmit, handleChange } = useAdminLoginForm();
 
   // Redirect if already logged in as admin
   useEffect(() => {
-    if (user && isAdmin) {
+    if (user) {
       router.replace('/admin');
     }
-  }, [user, isAdmin, router]);
+  }, [user, router]);
 
   const onSubmit = useCallback(async (e: React.FormEvent) => {
-    await handleSubmit(e, toast);
+    await handleSubmit(e);
   }, [handleSubmit, toast]);
 
   return (
