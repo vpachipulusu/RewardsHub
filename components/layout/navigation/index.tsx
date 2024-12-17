@@ -6,9 +6,9 @@ import { MainNavigation } from './main-navigation';
 import { useAuth } from '@/lib/auth-context';
 
 export function Navigation() {
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
 
-  if (isAdmin || !user) return null;
+  if (!user) return null;
 
   return (
     <NavigationMenu className="mx-6">

@@ -29,7 +29,7 @@ export function RetailerTable({ retailers, onDeleteRetailer }: RetailerTableProp
       case 'active':
         return 'default';
       case 'pending':
-        return 'warning';
+        return 'outline';
       case 'inactive':
         return 'secondary';
       default:

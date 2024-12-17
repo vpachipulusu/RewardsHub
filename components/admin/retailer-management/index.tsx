@@ -6,7 +6,9 @@ import { RetailerTable } from './retailer-table';
 import { RetailerFilters } from './retailer-filters';
 import { RetailerDetailsDialog } from './retailer-details-dialog';
 import { useToast } from '@/components/ui/use-toast';
+
 import { AdminRetailer } from '@/lib/types';
+
 
 // Mock data - replace with actual API call
 const mockRetailers: AdminRetailer[] = [
@@ -24,6 +26,20 @@ const mockRetailers: AdminRetailer[] = [
   },
   // Add more mock retailers...
 ];
+
+// Example usage
+const retailer: AdminRetailer = {
+  id: '1',
+  name: 'Retailer Name',
+  cashback: 10,
+  description: 'Latest electronics and gadgets',
+  categories: ['Electronics'],
+  url: 'https://example.com/retailer',
+  status: 'active',
+  termsAndConditions: 'Standard terms apply',
+  joinDate: '2024-01-15',
+  totalPayout: 25000,
+};
 
 export function RetailerManagement() {
   const { toast } = useToast();

@@ -14,6 +14,7 @@ import Link from "next/link";
 import { ROUTES } from "@/lib/config/constants";
 import { useAuth } from "@/lib/auth-context";
 import { User } from "@/lib/types";
+import Home from './../../app/page';
 
 export default function UserNav() {
   const { user, logout } = useAuth() as { user: User | null; logout: () => Promise<void> };
@@ -23,7 +24,7 @@ export default function UserNav() {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     await logout();
-    router.push("/login");
+    router.push(ROUTES.HOME);
   };
 
   useEffect(() => {

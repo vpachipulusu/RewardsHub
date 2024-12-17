@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
 
   const onSubmit = useCallback(async (e: React.FormEvent) => {
     await handleSubmit(e);
-  }, [handleSubmit, toast]);
+  }, [handleSubmit]);
 
   return (
     <div className="container flex items-center justify-center min-h-screen">

@@ -1,3 +1,5 @@
+import { Retailer } from "./retailers";
+
 export type PaymentMethod = 'paypal' | 'bank';
 
 export interface User {
@@ -20,3 +22,5 @@ export interface AdminRetailer extends Retailer {
   joinDate: string;
   totalPayout: number;
 }
+
+export type { Retailer };

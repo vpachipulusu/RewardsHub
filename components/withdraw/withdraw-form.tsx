@@ -46,7 +46,7 @@ export function WithdrawForm() {
             description: `Your withdrawal of ${formatCurrency(data.amount)} has been initiated.`,
           });
           
-          router.push(ROUTES.DASHBOARD);
+          router.push(ROUTES.USER.DASHBOARD);
         } catch (error) {
           toast({
             title: 'Error',

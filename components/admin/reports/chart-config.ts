@@ -1,6 +1,11 @@
-import { ChartProps } from 'recharts';
+import { Margin } from 'recharts/types/util/types';
 
-export const defaultChartConfig: Partial<ChartProps> = {
+interface CustomChartProps {
+  margin?: Margin;
+  style?: React.CSSProperties;
+}
+
+export const defaultChartConfig: Partial<CustomChartProps> = {
   margin: { top: 20, right: 20, bottom: 20, left: 20 },
   style: { userSelect: 'none' },
 };

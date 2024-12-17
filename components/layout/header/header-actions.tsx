@@ -1,7 +1,7 @@
 'use client';
 
 import { ModeToggle } from '@/components/mode-toggle';
-import { UserNav } from '../user-nav';
+import UserNav from '../user-nav';
 import { NotificationBell } from '@/components/notifications/notification-bell';
 import { useAuth } from '@/lib/auth-context';
 

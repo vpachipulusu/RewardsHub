@@ -24,8 +24,7 @@ interface ChartProps {
 }
 
 const defaultAxisProps = {
-  scale: 'auto',
-  padding: { left: 20, right: 20 },
+  scale: 'auto' as const,
   tickMargin: 10,
   width: 50,
 };

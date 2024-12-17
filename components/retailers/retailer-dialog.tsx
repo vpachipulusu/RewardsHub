@@ -81,7 +81,7 @@ export function RetailerDialog({ retailer, open, onOpenChange }: RetailerDialogP
                   <p className="font-medium mb-2">Processing & Payment</p>
                   <ul className="list-disc list-inside space-y-1">
                     <li>Cashback tracking may take up to 48 hours to appear</li>
-                    <li>Cashback becomes payable after the retailer's return period (30-60 days)</li>
+                    <li>Cashback becomes payable after the retailer&apos;s return period (30-60 days)</li>
                     <li>Minimum withdrawal amount applies</li>
                     <li>Payment processing takes 3-5 business days</li>
                   </ul>

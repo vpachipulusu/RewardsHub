@@ -2,23 +2,24 @@
 
 import { usePathname } from 'next/navigation';
 import { UserSidebar } from '@/components/user/user-sidebar';
-import { mockData } from '@/lib/config/mock-data';
+import { useAuth } from '@/lib/auth-context';
 
 export default function UserLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { user } = useAuth();
   const pathname = usePathname();
   const protectedRoutes = ['/dashboard', '/profile', '/withdraw'];
   const isProtectedRoute = protectedRoutes.some(route => pathname?.startsWith(route));
 
-  // For development, always show user layout on protected routes
-  const showSidebar = isProtectedRoute;
+  // Show sidebar only if the user is authenticated and on a protected route
+  const showSidebar = isProtectedRoute && !!user;
 
   return (
     <div className="flex min-h-screen">
-      {showSidebar && <UserSidebar user={mockData.user} />}
+      {showSidebar && <UserSidebar />}
       <main className={`flex-1 ${showSidebar ? 'p-6' : ''}`}>{children}</main>
     </div>
   );

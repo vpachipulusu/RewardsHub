@@ -25,8 +25,9 @@ export function RetailerChart({ data }: RetailerChartProps) {
           <MemoizedBarChart data={data} {...defaultChartConfig}>
             <Bar 
               dataKey="cashback" 
-              fill="hsl(var(--chart-1))"
-              {...barConfig}
+              fill="hsl(var(--chart-2))" // Ensure the correct CSS variable is used
+              radius={[10, 10, 10, 10]} // Ensure radius is correctly set
+              maxBarSize={30} // Ensure maxBarSize is correctly set
             />
           </MemoizedBarChart>
         </div>

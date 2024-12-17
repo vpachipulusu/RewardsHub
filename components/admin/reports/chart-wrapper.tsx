@@ -1,17 +1,8 @@
 'use client';
 
 import { memo } from 'react';
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { ResponsiveContainer, LineChart, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { ScaleType } from 'recharts/types/util/types';
 
 interface ChartData {
   [key: string]: any;
@@ -24,8 +15,7 @@ interface ChartProps {
 }
 
 const defaultAxisProps = {
-  scale: 'auto',
-  padding: { left: 20, right: 20 },
+  scale: 'auto' as ScaleType, // Ensure the scale is of type ScaleType
   tickMargin: 10,
   width: 50,
 };
