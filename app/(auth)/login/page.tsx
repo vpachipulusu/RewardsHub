@@ -1,20 +1,31 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { useAuth } from '@/lib/auth-context';
-import { AuthForm } from '@/components/auth/auth-form';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useAuth } from "@/lib/auth-context";
+import { AuthForm } from "@/components/auth/auth-form";
+import { ROUTES } from "@/lib/config";
 
 export default function LoginPage() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false); // Prevent UI rendering issues during redirect
 
   useEffect(() => {
-    if (user) {
-      router.push('/dashboard');
+    if (!isLoading && user) {
+      setIsRedirecting(true);
+      router.push(ROUTES.USER.DASHBOARD);
     }
-  }, [user, router]);
+  }, [user, isLoading, router]);
+
+  if (isLoading || isRedirecting) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {isRedirecting ? "Redirecting..." : "Loading..."}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -26,8 +37,11 @@ export default function LoginPage() {
       </div>
       <AuthForm type="login" />
       <p className="px-8 text-center text-sm text-muted-foreground">
-        Don&apos;t have an account?{' '}
-        <Link href="/signup" className="underline underline-offset-4 hover:text-primary">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/signup"
+          className="underline underline-offset-4 hover:text-primary"
+        >
           Sign up
         </Link>
       </p>

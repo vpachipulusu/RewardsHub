@@ -19,6 +19,7 @@ import { CircleDollarSign } from "lucide-react";
 import { AuthButtons } from "./auth-buttons";
 import { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '@/lib/types';
+import { ModeToggle } from "../mode-toggle";
 
 const AuthContext = createContext<{ user: User | null; isLoading: boolean }>({ user: null, isLoading: true });
 
@@ -43,7 +44,7 @@ export function useAuthContext() {
 const Header = memo(function Header() {
   const { user } = useAuthContext();
   const pathname = usePathname();
-  const isAdmin = user?.role === 'admin'; // Adjust this line based on your user object structure
+  const isAdmin = user?.role === "admin"; // Adjust this line based on your user object structure
 
   // Don't show header on admin pages except admin dashboard
   if (pathname?.startsWith("/admin") && pathname !== "/admin") {
@@ -60,7 +61,7 @@ const Header = memo(function Header() {
           </Link>
         </div>
 
-        {user && !isAdmin && (
+         {user && !isAdmin && (
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -75,10 +76,13 @@ const Header = memo(function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
-          </NavigationMenu>
+          </NavigationMenu> 
         )}
 
-                {user ? <UserNav /> : <AuthButtons isAuthenticated={!!user} />}
+        <div className="ml-auto flex items-center space-x-4">
+          <ModeToggle />
+             {user ? <UserNav /> : <AuthButtons isAuthenticated={!!user} />}
+        </div>
       </div>
     </header>
   );

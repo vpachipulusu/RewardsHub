@@ -46,7 +46,7 @@ export default function AuthLayout({
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              "Join thousands of smart shoppers earning cashback and rewards from their favorite retailers."
+              &quot;Join thousands of smart shoppers earning cashback and rewards from their favorite retailers.&quot;
             </p>
           </blockquote>
         </div>
