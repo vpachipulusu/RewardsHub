@@ -16,9 +16,32 @@ import {
 } from "@/components/ui/navigation-menu";
 import UserNav from "@/components/layout/user-nav";
 import { CircleDollarSign } from "lucide-react";
+import { AuthButtons } from "./auth-buttons";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { User } from '@/lib/types';
+
+const AuthContext = createContext<{ user: User | null; isLoading: boolean }>({ user: null, isLoading: true });
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch user data and set user state
+    const fetchedUser: User = { id: '1', email: 'admin@example.com', name: 'Admin', role: 'admin' };
+    setUser(fetchedUser);
+    setIsLoading(false);
+  }, []);
+
+  return <AuthContext.Provider value={{ user, isLoading }}>{children}</AuthContext.Provider>;
+}
+
+export function useAuthContext() {
+  return useContext(AuthContext);
+}
 
 const Header = memo(function Header() {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const pathname = usePathname();
   const isAdmin = user?.role === 'admin'; // Adjust this line based on your user object structure
 
@@ -55,7 +78,7 @@ const Header = memo(function Header() {
           </NavigationMenu>
         )}
 
-        {user && <UserNav />}
+                {user ? <UserNav /> : <AuthButtons isAuthenticated={!!user} />}
       </div>
     </header>
   );

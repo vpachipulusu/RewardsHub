@@ -3,56 +3,24 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { User } from "@/lib/types";
 
-interface AuthContextType {
-  user: User | null;
-  loginAsAdmin: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<{ user: User | null; isLoading: boolean }>({ user: null, isLoading: true });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user data and set user state
-    const fetchedUser: User = {
-      id: "1",
-      email: "admin@rewardhub.com",
-      name: "Admin",
-      role: "admin",
-    };
-    setUser(fetchedUser);
+    // Simulate fetching user data
+    setTimeout(() => {
+      const fetchedUser: User = { id: '1', email: 'admin@example.com', name: 'Admin', role: 'admin' };
+      setUser(fetchedUser);
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
-  const loginAsAdmin = async (
-    email: string,
-    password: string
-  ): Promise<void> => {
-    // Simulate login logic (replace with your actual login logic)
-    if (email === "admin@rewardhub.com" && password === "admin123") {
-      setUser({ id: "1", email, name: "Admin", role: "admin" });
-    } else {
-      throw new Error("Invalid admin credentials");
-    }
-  };
-
-  const logout = async (): Promise<void> => {
-    // Simulate logout logic (replace with your actual logout logic)
-    setUser(null);
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, loginAsAdmin, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, isLoading }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
+  return useContext(AuthContext);
 }
